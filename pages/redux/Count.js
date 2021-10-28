@@ -2,10 +2,21 @@ import React from "react"
 import Head from 'next/head'
 import styles from '../../styles/Redux.module.css'
 import { connect } from './ReactRedux'
+import { add } from './actions'
 
-@connect()
+// 装饰器模式
+@connect(
+  state => state,
+  { add, minus },
+)
 export default class Redux extends React.Component{
   render() {
+    const {
+      state: count,
+      add,
+      minus,
+    } = this.props
+
     return (
       <div className={styles.container}>
         <Head>
@@ -16,9 +27,9 @@ export default class Redux extends React.Component{
         <div className={styles.main}>
 
           <div className={styles.count}>
-            <button>-</button>
-            <span>0</span>
-            <button>+</button>
+            <button onClick={minus}>-</button>
+            <span>{count}</span>
+            <button onClick={add}>+</button>
           </div>
         </div>
       </div>
